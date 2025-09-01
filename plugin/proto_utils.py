@@ -5,11 +5,16 @@ Provides utilities for working with protobuf messages and binary data.
 """
 
 import struct
-from typing import Union, Optional, Any, Dict
+from typing import Union, Optional, Any, Dict, cast, Protocol
 from .proto import MessageSend, Transaction
 
 
-def marshal(message: Any) -> bytes:
+class MessageProtocol(Protocol):
+    """Protocol for objects that can be marshaled."""
+    def SerializeToString(self) -> bytes: ...
+
+
+def marshal(message: MessageProtocol) -> bytes:
     """
     Marshal object to protobuf bytes.
     

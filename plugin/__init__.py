@@ -12,13 +12,13 @@ __description__ = "Python implementation of the Canopy blockchain plugin"
 
 # Public API exports
 from .config import Config
-from .contract import Contract
-from .errors import PluginError
-from .socket_client import SocketClient
+from .core import Contract
+from .core.exceptions import PluginException
+from .socket import SocketClient
 
 __all__ = [
     "Config",
-    "Contract", 
-    "PluginError",
+    "Contract",
+    "PluginException",
     "SocketClient",
 ]

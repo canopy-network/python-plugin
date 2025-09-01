@@ -11,8 +11,8 @@ import os
 import logging
 from typing import Optional
 
-from .config import Config
-from .socket_client import SocketClient, SocketClientOptions
+from plugin.config import Config
+from plugin.socket import SocketClient, SocketClientOptions
 
 
 # Configure logging
@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 class PluginApp:
     """Main plugin application with graceful shutdown handling."""
     
-    def __init__(self):
+    def __init__(self) -> None:
         self.socket_client: Optional[SocketClient] = None
         self._shutdown_event = asyncio.Event()
     
@@ -36,7 +36,7 @@ class PluginApp:
             logger.info('Starting Canopy Plugin')
             
             # Create default configuration
-            config = Config.default_config()
+            config = Config()
             
             # Log configuration
             logger.info(f'Plugin configuration:')
@@ -90,7 +90,7 @@ class PluginApp:
         """Setup signal handlers for graceful shutdown."""
         loop = asyncio.get_running_loop()
         
-        def signal_handler():
+        def signal_handler() -> None:
             logger.info('Received shutdown signal')
             self._shutdown_event.set()
         
